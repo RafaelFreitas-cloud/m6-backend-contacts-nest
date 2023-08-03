@@ -10,7 +10,4 @@ export abstract class UsersRepository {
   abstract findOne(id: string): Promise<User>;
   abstract update(id: string, data: UpdateUserDto): Promise<User>;
   abstract delete(id: string): Promise<void>;
-  // abstract findOne(id: number): Promise<User>;
-  // abstract update(id: number, data: UpdateUserDto): Promise<User>;
-  // abstract delete(id: number): Promise<void>;
 }

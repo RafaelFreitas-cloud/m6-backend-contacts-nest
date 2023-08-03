@@ -2,8 +2,8 @@
 // import { randomUUID } from "node:crypto";
 
 export class User {
-  // readonly id: number;
-  readonly id: string;
+  readonly id: number;
+  // readonly id: string;
   name: string;
   email: string;
   phone: string;

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -40,3 +41,8 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 }
+
+
+
+
+

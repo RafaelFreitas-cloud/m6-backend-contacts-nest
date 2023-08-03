@@ -21,7 +21,6 @@ export class UsersService {
     return this.userRepository.findAll();
   }
 
-  // async findOne(id: number) {
   async findOne(id: string) {
     const findUser = await this.userRepository.findOne(id);
     if (!findUser) {
@@ -30,7 +29,6 @@ export class UsersService {
     return findUser;
   }
 
-  // async update(id: number, updateUserDto: UpdateUserDto) {
   async update(id: string, updateUserDto: UpdateUserDto) {
     const findUser = await this.userRepository.findOne(id);
     if (!findUser) {
@@ -39,7 +37,6 @@ export class UsersService {
     return this.userRepository.update(id, updateUserDto);
   }
 
-  // async remove(id: number) {
   async remove(id: string) {
     const findUser = await this.userRepository.findOne(id);
     if (!findUser) {
@@ -48,3 +45,5 @@ export class UsersService {
     return this.userRepository.delete(id);
   }
 }
+
+
