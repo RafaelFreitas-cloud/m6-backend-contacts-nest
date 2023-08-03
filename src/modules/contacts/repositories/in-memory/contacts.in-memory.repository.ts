@@ -19,7 +19,8 @@ export class ContactsInMemoryRepository implements ContactsRepository {
         return this.database
     }
     async findOne(id: string): Promise<Contact> {
-        const contact = this.database.find(contact => contact.id == id)
+        const contactId = parseInt(id)
+        const contact = this.database.find(contact => contact.id == contactId)
 
         return contact
     }

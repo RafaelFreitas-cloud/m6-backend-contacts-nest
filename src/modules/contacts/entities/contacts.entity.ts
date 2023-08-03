@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { randomUUID } from "crypto"
+// import { randomUUID } from "crypto"
 
 export class Contact {
-    readonly id:string
+    readonly id:number
     name:string
     email:string
     phone:string
     // createdAt: string | Date;
-    user_id:string
+    userId:number
 
-    constructor(){
-        this.id = randomUUID()
-    }
+    // constructor(){
+    //     this.id = randomUUID()
+    // }
 }

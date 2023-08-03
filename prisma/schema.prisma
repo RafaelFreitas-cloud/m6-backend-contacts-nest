@@ -26,8 +26,8 @@ model User {
 }
 
 model Contact {
-  // id Int @id @default(autoincrement())
-  id String @id
+  id Int @id @default(autoincrement())
+  // id String @id
   name String
   email String 
   phone String
