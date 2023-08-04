@@ -1,73 +1,345 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# PARA RODAR O PROJETO
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Requisitos
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Ter o Node instalado
+- Ter o nmp instalado (gerenciador de pacotes)
 
-## Description
+## Informações
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Database: Banco de Dados em PostgreSQL (PSQL), sistema gerenciador de banco de dados relacional de código aberto, altamente confiável e escalável. Ele é amplamente utilizado em projetos web e aplicativos empresariais devido à sua capacidade de lidar com grandes volumes de dados e sua conformidade com os padrões SQL.
 
-## Installation
+- Arquivo .env: Existe um arquivo **.env.example** na pasta matriz do projeto com 1 variável de ambiente dentro dele:
 
-```bash
-$ npm install
+  - **DATABASE_URL = "postgres://(user):(password)@(host):(port)/(database)?schema=public"**
+
+  este arqivo deve-se transformar-se em **.env** e deve-se substituir as informações entre **( )**, com as informações do psql do desenvolverdor
+
+## Fazer os seguintes comandos
+
+npm install (para instalar dependencias)
+
+npx prisma migrate dev (para rodar as migrations)
+
+npm run start:dev (para iniciar o servidor)
+
+## Endpoints:
+
+| Método | Endpoint      | Responsabilidade             | Autenticação                          |
+| ------ | ------------- | ---------------------------- | ------------------------------------- |
+| POST   | /login        | Gera o token de autenticação | Qualquer usuário, não necessita token |
+| GET    | /users/logged | Retornar usuário logado      | Qualquer usuário, obrigatório token   |
+| POST   | /users        | Criação de usuário           | Qualquer usuário, não necessita token |
+| GET    | /users        | Lista todos os usuários      | Qualquer usuário, obrigatório token   |
+| PATCH  | /users/:id    | Atualiza um usuário          | Obrigatório token e dono da conta     |
+| DELETE | /users/:id    | Deletar usuário              | Obrigatório token e dono da conta     |
+| POST   | /contacts     | Criação de contato           | Qualquer usuário, obrigatório token   |
+| GET    | /contacts     | Lista todos os contatos      | Qualquer usuário, obrigatório token   |
+| GET    | /contacts/:id | Retornar contato             | Qualquer usuário, obrigatório token   |
+| PATCH  | /contacts/:id | Atualiza um contato          | Obrigatório token e dono do contato   |
+| DELETE | /contacts/:id | Deletar contato              | Obrigatório token e dono do contato   |
+
+### **POST - /login**
+
+Rota de login do usuário.
+
+**Url da requisição**: `http://localhost:3000/login`
+
+| Dados de Envio:    |
+| ------------------ |
+| Body: Formato Json |
+
+```json
+{
+  "email": "rafael@email.com",
+  "password": "123456"
+}
 ```
 
-## Running the app
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhZmFlbEBlbWFpbC5jb20iLCJpYXQiOjE2OTAzMTU1MzIsImV4cCI6MTY5MDkyMDMzMiwic3ViIjoiYTk1NWRjZDctMDQxNS00MzQ3LTgxMDEtYjdkNTJmNzM0ODFjIn0.czMWiRh1AeEyYyv-k-iCTAUlt8uLTbieKHrEtBm8xlA"
+}
 ```
 
-## Test
+### **GET - /users/logged**
 
-```bash
-# unit tests
-$ npm run test
+Rota de listagem de todos usuários.
 
-# e2e tests
-$ npm run test:e2e
+**Url da requisição**: `http://localhost:3000/users/logged`
 
-# test coverage
-$ npm run test:cov
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
+
+```json
+{
+  "createdAt": "04/08/2023 10:39:43",
+  "id": 1,
+  "name": "Rafael",
+  "email": "rafael@email.com",
+  "phone": "712222-9999"
+}
 ```
 
-## Support
+### **POST - /users**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Rota de criação de usuário.
 
-## Stay in touch
+**Url da requisição**: `http://localhost:3000/users`
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Dados de Envio:    |
+| ------------------ |
+| Body: Formato Json |
 
-## License
+```json
+{
+  "name": "Rafael",
+  "email": "rafael@email.com",
+  "phone": "719999-9999",
+  "password": "123456"
+}
+```
 
-Nest is [MIT licensed](LICENSE).
+| Resposta do servidor:                               |
+| --------------------------------------------------- |
+| Body: Formato Json                                  |
+| Status code: <b style="color:green">201 CREATED</b> |
+
+```json
+{
+  "id": "a955dcd7-0415-4347-8101-b7d52f73481c",
+  "name": "Rafael",
+  "email": "rafael@email.com",
+  "phone": "719999-9999",
+  "createdAt": "2023-07-25"
+}
+```
+
+### **GET - /users**
+
+Rota de listagem de todos usuários.
+
+**Url da requisição**: `http://localhost:3000/users`
+
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Rafael",
+    "email": "rafael@email.com",
+    "phone": "717777-9999",
+    "createdAt": "2023-07-26"
+  },
+  {
+    "id": 2,
+    "name": "Pedro",
+    "email": "pedro@email.com",
+    "phone": "716666-9999",
+    "createdAt": "2023-07-26"
+  },
+  {
+    "id": 3,
+    "name": "Silvia",
+    "email": "silvia@email.com",
+    "phone": "718888-9999",
+    "createdAt": "2023-07-26"
+  }
+]
+```
+
+### **PATCH - /users/:id**
+
+Atualizar o úsuário dono da conta pelo id recebido nos parâmetros da rota.
+
+**Url da requisição**: `http://localhost:3000/users/3`
+
+| Dados de Envio:    |
+| ------------------ |
+| Body: Formato Json |
+
+```json
+{
+  "name": "Silvia Helena",
+  "phone": "71 6666-5555"
+}
+```
+
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
+
+```json
+{
+  "id": 3,
+  "name": "Silvia Helena",
+  "email": "silvia@email.com",
+  "phone": "71 6666-5555",
+  "createdAt": "2023-07-25"
+}
+```
+
+### **DELETE - /users/:id**
+
+Deletar o úsuário dono da conta pelo id recebido nos parâmetros da rota.
+
+**Url da requisição**: `http://localhost:3000/users/3`
+
+| Resposta do servidor:                                  |
+| ------------------------------------------------------ |
+| Body: **Nenhum body deve ser retornado**               |
+| Status code: <b style="color:green">204 NO CONTENT</b> |
+
+```json
+
+```
+
+### **POST - /contacts**
+
+Rota de criação de contato.
+
+**Url da requisição**: `http://localhost:3000/contacts`
+
+| Dados de Envio:    |
+| ------------------ |
+| Body: Formato Json |
+
+```json
+{
+  "name": "Fernanda",
+  "email": "fernanda@email.com",
+  "phone": "717777-9999"
+}
+```
+
+| Resposta do servidor:                               |
+| --------------------------------------------------- |
+| Body: Formato Json                                  |
+| Status code: <b style="color:green">201 CREATED</b> |
+
+```json
+{
+  "id": 1,
+  "name": "Fernanda",
+  "email": "fernanda@email.com",
+  "phone": "717777-9999",
+  "createdAt": "2023-07-26"
+}
+```
+
+### **GET - /contacts**
+
+Rota de listagem de todos os contatos do usuário.
+
+**Url da requisição**: `http://localhost:3000/contacts`
+
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
+
+```json
+[
+  {
+    "id": 2,
+    "name": "Felipe",
+    "email": "felipe@email.com",
+    "phone": "714444-9999",
+    "createdAt": "2023-07-26"
+  },
+  {
+    "id": 1,
+    "name": "Fernanda",
+    "email": "fernanda@email.com",
+    "phone": "713333-9999",
+    "createdAt": "2023-07-26"
+  },
+  {
+    "id": 3,
+    "name": "Hasso",
+    "email": "hasso@email.com",
+    "phone": "715555-9999",
+    "createdAt": "2023-07-26"
+  }
+]
+```
+
+### **GET - /contacts/:id**
+
+Rota de listagem de contato do usuário por id.
+
+**Url da requisição**: `http://localhost:3000/contacts/3`
+
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
+
+```json
+{
+  "id": 3,
+  "name": "Hasso",
+  "email": "hasso@email.com",
+  "phone": "715555-9999",
+  "createdAt": "2023-07-26"
+}
+```
+
+### **PATCH - /contacts/:id**
+
+Atualizar o contato do úsuário, id recebido nos parâmetros da rota.
+
+**Url da requisição**: `http://localhost:3000/contacts/3`
+
+| Dados de Envio:    |
+| ------------------ |
+| Body: Formato Json |
+
+```json
+{
+  "email": "hassinho@email.com",
+  "phone": "71 6666-9999"
+}
+```
+
+| Resposta do servidor:                          |
+| ---------------------------------------------- |
+| Body: Formato Json                             |
+| Status code: <b style="color:green">200 OK</b> |
+
+```json
+{
+  "id": 3,
+  "name": "Hasso",
+  "email": "hassinho@email.com",
+  "phone": "71 6666-9999",
+  "createdAt": "2023-07-26"
+}
+```
+
+### **DELETE - /contacts/:id**
+
+Deletar contato do úsuário, id recebido nos parâmetros da rota.
+
+**Url da requisição**: `http://localhost:3000/contacts/3`
+
+| Resposta do servidor:                                  |
+| ------------------------------------------------------ |
+| Body: **Nenhum body deve ser retornado**               |
+| Status code: <b style="color:green">204 NO CONTENT</b> |
+
+```json
+
+```
