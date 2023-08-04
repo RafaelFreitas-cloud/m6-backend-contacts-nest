@@ -5,6 +5,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 
 export abstract class UsersRepository {
   abstract create(data: CreateUserDto): Promise<User>;
+  abstract findLogged(id: string): Promise<User>
   abstract findAll(): Promise<User[]>;
   abstract findByEmail(email: string): Promise<User>;
   abstract findOne(id: string): Promise<User>;

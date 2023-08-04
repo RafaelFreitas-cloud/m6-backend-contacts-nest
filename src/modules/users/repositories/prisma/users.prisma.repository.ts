@@ -20,6 +20,14 @@ export class UsersPrismaRepository implements UsersRepository {
     });
     return plainToInstance(User, newUser);
   }
+  async findLogged(id: string): Promise<User> {
+    const userId = parseInt(id);
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    return plainToInstance(User, user);
+  }
   async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany();
     return plainToInstance(User, users);

@@ -8,6 +8,7 @@ import {
   Patch,
   Param,
   Delete,
+  Request
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,6 +22,12 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Get('logged')
+  @UseGuards(JwtAuthGuard)
+  findLogged(@Request() req) {
+    return this.usersService.findLogged(req.user.id);
   }
 
   @Get()
