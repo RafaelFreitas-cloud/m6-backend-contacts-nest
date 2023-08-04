@@ -9,12 +9,12 @@ import { UpdateContactDto } from '../../dtos/update-contact.dto';
 @Injectable()
 export class ContactsPrismaRepository implements ContactsRepository {
   constructor(private prisma: PrismaService) {}
-  async create(data: CreateContactDto): Promise<Contact> {
-    console.log(data);
+  async create(data: CreateContactDto, id: string): Promise<Contact> {
     const contact = new Contact();
-    console.log(contact);
+    const userId = parseInt(id)
     Object.assign(contact, {
       ...data,
+      userId,
     });
 
     const newContact = await this.prisma.contact.create({
@@ -50,6 +50,6 @@ export class ContactsPrismaRepository implements ContactsRepository {
     const contact = await this.prisma.contact.delete({
       where: { id: contactId },
     });
-    console.log(contact)
+    console.log(contact);
   }
 }
