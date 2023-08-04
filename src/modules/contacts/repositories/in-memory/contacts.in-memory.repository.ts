@@ -24,5 +24,17 @@ export class ContactsInMemoryRepository implements ContactsRepository {
 
         return contact
     }
+    async update(id: string): Promise<Contact> {
+        const contactId = parseInt(id)
+        const contact = this.database.find(contact => contact.id == contactId)
+
+        return contact
+    }
+    async delete(id: string): Promise<void> {
+        const contactId = parseInt(id)
+        const contact = this.database.find(contact => contact.id == contactId)
+
+        
+    }
 
 }
