@@ -1,7 +1,16 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { UseGuards } from '@nestjs/common';
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Patch, Delete, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Patch,
+  Delete,
+  Request,
+} from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dtos/create-contact.dto';
 import { UpdateContactDto } from './dtos/update-contact.dto';
@@ -13,31 +22,34 @@ export class ContactsControllers {
   @Post()
   @UseGuards(JwtAuthGuard)
   create(@Body() data: CreateContactDto, @Request() req) {
-    return this.contactsService.create(data, req.user.id)
+    return this.contactsService.create(data, req.user.id);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  findAll() {
-    return this.contactsService.findAll()
+  findAll(@Request() req) {
+    return this.contactsService.findAll(req.user.id);
   }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
-  findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.contactsService.findOne(id)
+  findOne(@Param('id') id: string, @Request() req) {
+    return this.contactsService.findOne(id, req.user.id);
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
-    return this.contactsService.update(id, updateContactDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateContactDto: UpdateContactDto,
+    @Request() req,
+  ) {
+    return this.contactsService.update(id, updateContactDto, req.user.id);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.contactsService.remove(id);
+  remove(@Param('id') id: string, @Request() req) {
+    return this.contactsService.remove(id, req.user.id);
   }
-
 }

@@ -9,9 +9,9 @@ import { UpdateContactDto } from '../../dtos/update-contact.dto';
 @Injectable()
 export class ContactsPrismaRepository implements ContactsRepository {
   constructor(private prisma: PrismaService) {}
-  async create(data: CreateContactDto, id: string): Promise<Contact> {
+  async create(data: CreateContactDto, stringUserId: string): Promise<Contact> {
     const contact = new Contact();
-    const userId = parseInt(id)
+    const userId = parseInt(stringUserId);
     Object.assign(contact, {
       ...data,
       userId,
@@ -25,30 +25,44 @@ export class ContactsPrismaRepository implements ContactsRepository {
     });
     return newContact;
   }
-  async findAll(): Promise<Contact[]> {
-    const contacts = await this.prisma.contact.findMany();
+  async findAll(stringUserId: string): Promise<Contact[]> {
+    const userId = parseInt(stringUserId);
+    const contacts = await this.prisma.contact.findMany({
+      where: { userId: userId },
+    });
     return contacts;
   }
-  async findOne(id: string): Promise<Contact> {
+  async findOne(id: string, stringUserId: string): Promise<Contact> {
+    const userId = parseInt(stringUserId);
     const contactId = parseInt(id);
+
     const contact = await this.prisma.contact.findUnique({
-      where: { id: contactId },
+      where: { id: contactId, userId: userId },
     });
+
     return contact;
   }
-  async update(id: string, data: UpdateContactDto): Promise<Contact> {
+  async update(
+    id: string,
+    data: UpdateContactDto,
+    stringUserId: string,
+  ): Promise<Contact> {
+    const userId = parseInt(stringUserId);
     const contactId = parseInt(id);
+
     const contact = await this.prisma.contact.update({
-      where: { id: contactId },
+      where: { id: contactId, userId: userId },
       data: { ...data },
     });
 
     return contact;
   }
-  async delete(id: string): Promise<void> {
+  async delete(id: string, stringUserId: string): Promise<void> {
+    const userId = parseInt(stringUserId);
     const contactId = parseInt(id);
+
     const contact = await this.prisma.contact.delete({
-      where: { id: contactId },
+      where: { id: contactId, userId: userId },
     });
     console.log(contact);
   }
