@@ -28,5 +28,4 @@ export class CreateUserDto {
     groups: ['transform'],
   })
   password: string;
-  // createdAt: string;
 }

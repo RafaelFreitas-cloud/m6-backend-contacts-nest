@@ -5,16 +5,18 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "createdAt" TEXT NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "contacts" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
+    "createdAt" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "contacts_pkey" PRIMARY KEY ("id")
