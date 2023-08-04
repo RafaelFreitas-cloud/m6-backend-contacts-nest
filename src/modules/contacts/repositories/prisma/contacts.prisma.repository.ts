@@ -50,5 +50,6 @@ export class ContactsPrismaRepository implements ContactsRepository {
     const contact = await this.prisma.contact.delete({
       where: { id: contactId },
     });
+    console.log(contact)
   }
 }

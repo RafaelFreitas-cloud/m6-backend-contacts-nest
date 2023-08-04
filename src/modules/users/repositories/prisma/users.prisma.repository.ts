@@ -54,5 +54,6 @@ export class UsersPrismaRepository implements UsersRepository {
     const user = await this.prisma.user.delete({
       where: { id: userId },
     });
+    console.log(user)
   }
 }
