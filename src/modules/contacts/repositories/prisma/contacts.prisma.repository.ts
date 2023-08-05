@@ -30,6 +30,9 @@ export class ContactsPrismaRepository implements ContactsRepository {
     const contacts = await this.prisma.contact.findMany({
       where: { userId: userId },
     });
+
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+
     return contacts;
   }
   async findOne(id: string, stringUserId: string): Promise<Contact> {

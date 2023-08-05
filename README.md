@@ -70,7 +70,7 @@ Rota de login do usuário.
 
 ### **GET - /users/logged**
 
-Rota de listagem de todos usuários.
+Rota de listagem de usuário logado.
 
 **Url da requisição**: `http://localhost:3000/users/logged`
 
@@ -82,7 +82,7 @@ Rota de listagem de todos usuários.
 ```json
 {
   "createdAt": "04/08/2023 10:39:43",
-  "id": 1,
+  "id": 2,
   "name": "Rafael",
   "email": "rafael@email.com",
   "phone": "712222-9999"
@@ -115,11 +115,11 @@ Rota de criação de usuário.
 
 ```json
 {
-  "id": "a955dcd7-0415-4347-8101-b7d52f73481c",
+  "createdAt": "04/08/2023 10:39:43",
+  "id": 2,
   "name": "Rafael",
   "email": "rafael@email.com",
-  "phone": "719999-9999",
-  "createdAt": "2023-07-25"
+  "phone": "712222-9999"
 }
 ```
 
@@ -136,27 +136,27 @@ Rota de listagem de todos usuários.
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Rafael",
-    "email": "rafael@email.com",
-    "phone": "717777-9999",
-    "createdAt": "2023-07-26"
-  },
-  {
-    "id": 2,
-    "name": "Pedro",
-    "email": "pedro@email.com",
-    "phone": "716666-9999",
-    "createdAt": "2023-07-26"
-  },
-  {
-    "id": 3,
-    "name": "Silvia",
-    "email": "silvia@email.com",
-    "phone": "718888-9999",
-    "createdAt": "2023-07-26"
-  }
+	{
+		"createdAt": "04/08/2023 21:21:00",
+		"id": 2,
+		"name": "Rafael",
+		"email": "rafael@email.com",
+		"phone": "716666-9999"
+	},
+	{
+		"createdAt": "05/08/2023 08:02:00",
+		"id": 3,
+		"name": "Silvia",
+		"email": "silvia@email.com",
+		"phone": "715555-9999"
+	},
+	{
+		"createdAt": "05/08/2023 08:03:32",
+		"id": 4,
+		"name": "Pedro",
+		"email": "pedro@email.com",
+		"phone": "714444-9999"
+	}
 ]
 ```
 
@@ -183,12 +183,12 @@ Atualizar o úsuário dono da conta pelo id recebido nos parâmetros da rota.
 | Status code: <b style="color:green">200 OK</b> |
 
 ```json
-{
+{ 
+  "createdAt": "05/08/2023 08:02:00",
   "id": 3,
   "name": "Silvia Helena",
   "email": "silvia@email.com",
   "phone": "71 6666-5555",
-  "createdAt": "2023-07-25"
 }
 ```
 
@@ -236,7 +236,8 @@ Rota de criação de contato.
   "name": "Fernanda",
   "email": "fernanda@email.com",
   "phone": "717777-9999",
-  "createdAt": "2023-07-26"
+  "createdAt": "04/08/2023 19:50:42",
+	"userId": 3
 }
 ```
 
@@ -253,27 +254,30 @@ Rota de listagem de todos os contatos do usuário.
 
 ```json
 [
-  {
-    "id": 2,
-    "name": "Felipe",
-    "email": "felipe@email.com",
-    "phone": "714444-9999",
-    "createdAt": "2023-07-26"
-  },
-  {
-    "id": 1,
-    "name": "Fernanda",
-    "email": "fernanda@email.com",
-    "phone": "713333-9999",
-    "createdAt": "2023-07-26"
-  },
-  {
-    "id": 3,
-    "name": "Hasso",
-    "email": "hasso@email.com",
-    "phone": "715555-9999",
-    "createdAt": "2023-07-26"
-  }
+	{
+		"id": 3,
+		"name": "Alex",
+		"email": "alex@email.com",
+		"phone": "713333-9999",
+		"createdAt": "05/08/2023 08:16:22",
+		"userId": 3
+	},
+	{
+		"id": 4,
+		"name": "Bia",
+		"email": "bia@email.com",
+		"phone": "713333-9999",
+		"createdAt": "05/08/2023 08:16:34",
+		"userId": 3
+	},
+	{
+		"id": 2,
+		"name": "Erika",
+		"email": "erika@email.com",
+		"phone": "714444-9999",
+		"createdAt": "05/08/2023 08:15:58",
+		"userId": 3
+	}
 ]
 ```
 
@@ -290,11 +294,12 @@ Rota de listagem de contato do usuário por id.
 
 ```json
 {
-  "id": 3,
-  "name": "Hasso",
-  "email": "hasso@email.com",
-  "phone": "715555-9999",
-  "createdAt": "2023-07-26"
+	"id": 3,
+	"name": "Alex",
+	"email": "alex@email.com",
+	"phone": "713333-9999",
+	"createdAt": "05/08/2023 08:16:22",
+	"userId": 3
 }
 ```
 
@@ -310,7 +315,7 @@ Atualizar o contato do úsuário, id recebido nos parâmetros da rota.
 
 ```json
 {
-  "email": "hassinho@email.com",
+	"email": "alexinho@email.com",
   "phone": "71 6666-9999"
 }
 ```
@@ -322,11 +327,12 @@ Atualizar o contato do úsuário, id recebido nos parâmetros da rota.
 
 ```json
 {
-  "id": 3,
-  "name": "Hasso",
-  "email": "hassinho@email.com",
-  "phone": "71 6666-9999",
-  "createdAt": "2023-07-26"
+	"id": 3,
+	"name": "Alex",
+	"email": "alexinho@email.com",
+	"phone": "71 6666-9999",
+	"createdAt": "05/08/2023 08:16:22",
+	"userId": 3
 }
 ```
 
