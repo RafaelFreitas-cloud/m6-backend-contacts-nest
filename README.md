@@ -24,6 +24,10 @@ npx prisma migrate dev (para rodar as migrations)
 
 npm run start:dev (para iniciar o servidor)
 
+## Documentação:
+
+**Url**: `http://localhost:3000/api`
+
 ## Endpoints:
 
 | Método | Endpoint      | Responsabilidade             | Autenticação                          |
